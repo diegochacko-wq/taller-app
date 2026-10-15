@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Taller</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style> /* (Mismo CSS de antes) */ </style>
+</head>
+<body>
+    <!-- (Mismo HTML de antes) -->
+    <script>
+        const supabase = supabase.createClient('TU_URL', 'TU_KEY');
+
+        async function guardar() {
+            const n = document.getElementById('nombre').value;
+            if(n) {
+                await supabase.from('clientes').insert({nombre: n});
+                render();
+            }
+        }
+        async function render() {
+            const { data } = await supabase.from('clientes').select('nombre');
+            document.getElementById('lista').innerHTML = data.map(i => `<li>${i.nombre}</li>`).join('');
+        }
+        render();
+    </script>
+</body>
+</html>
