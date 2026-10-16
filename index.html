@@ -14,12 +14,12 @@
         async function guardar() {
             const n = document.getElementById('nombre').value;
             if(n) {
-                await supabase.from('clientes').insert({nombre: n});
+                await db.from('clientes').insert({nombre: n});
                 render();
             }
         }
         async function render() {
-            const { data } = await supabase.from('clientes').select('nombre');
+            const { data } = await db.from('clientes').select('nombre');
             document.getElementById('lista').innerHTML = data.map(i => `<li>${i.nombre}</li>`).join('');
         }
         render();
